@@ -1,6 +1,7 @@
 let playerHealth = 100;
 let enemyHealth = 100;
 let coins = 60;
+let isEnemyRecruited = false;
 
 function updateUI() {
   document.getElementById("playerHealth").textContent = playerHealth;
@@ -12,7 +13,7 @@ function attack() {
   if (enemyHealth > 0) {
     enemyHealth -= 20;
     coins += 20 * 5 / 100; // 5 moedas por 1% de dano
-    if (enemyHealth < 0) enemyHealth = 0;
+    if (enemyHealth <= 0) handleEnemyDefeat();
     updateUI();
   }
 }
@@ -22,7 +23,7 @@ function attackLevel2() {
     coins -= 10;
     enemyHealth -= 50;
     coins += 50 * 5 / 100;
-    if (enemyHealth < 0) enemyHealth = 0;
+    if (enemyHealth <= 0) handleEnemyDefeat();
     updateUI();
   }
 }
@@ -30,16 +31,58 @@ function attackLevel2() {
 function attackLevel3() {
   if (coins >= 50 && enemyHealth > 0) {
     coins -= 50;
-    enemyHealth -= 100;
-    coins += 100 * 5 / 100;
-    if (enemyHealth < 0) enemyHealth = 0;
+    enemyHealth -= 90; // Agora dá 90% de dano
+    coins += 90 * 5 / 100;
+    if (enemyHealth <= 0) handleEnemyDefeat();
+    updateUI();
+  }
+}
+
+function powerAttack() {
+  if (coins >= 100 && enemyHealth > 0) {
+    coins -= 100;
+    enemyHealth = 0; // Mata o inimigo
+    coins += 100; // Ganha moedas ao derrotar
+    handleEnemyDefeat();
     updateUI();
   }
 }
 
 function recruit() {
-  alert("Juninhococô-v4q está do bem por 5 segundos!");
-  setTimeout(() => alert("Juninhococô-v4q voltou a ser inimigo!"), 5000);
+  if (coins >= 15 && !isEnemyRecruited) {
+    coins -= 15;
+    isEnemyRecruited = true;
+    alert("Juninhococô-v4q está do bem por 10 segundos!");
+    setTimeout(() => {
+      isEnemyRecruited = false;
+      alert("Juninhococô-v4q voltou a ser inimigo!");
+    }, 10000);
+    updateUI();
+  }
 }
+
+function enemyAttack() {
+  if (enemyHealth > 0 && !isEnemyRecruited) {
+    playerHealth -= 10; // Inimigo ataca 10% de vida
+    if (playerHealth <= 0) {
+      playerHealth = 0;
+      alert("Você perdeu!");
+    }
+    updateUI();
+  }
+}
+
+function handleEnemyDefeat() {
+  alert("Você derrotou Juninhococô-v4q!");
+  coins += 100; // Ganha 100 moedas ao derrotar
+  setTimeout(() => {
+    enemyHealth = 100; // Inimigo renasce após 20 segundos
+    alert("Juninhococô-v4q renasceu!");
+    updateUI();
+  }, 20000);
+}
+
+// Inicia o ataque do inimigo a cada 5 segundos
+setInterval(enemyAttack, 5000);
 
 updateUI();
