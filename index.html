@@ -1,0 +1,83 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalha</title>
+  <link rel="stylesheet" href="styles.css">
+      <style>body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+  color: #333;
+}
+
+.info, .enemy-info {
+  margin-bottom: 20px;
+}
+
+.actions button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+}
+
+.actions button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Batalha</h1>
+    <div class="info">
+      <p>Personagem: <span id="playerName">Jogador</span></p>
+      <p>Vida do Jogador: <span id="playerHealth">100</span></p>
+      <p>Moedas: <span id="coins">0</span></p>
+    </div>
+
+    <div class="enemy">
+      <h2>Inimigo: Juninhococô-v4q</h2>
+      <div class="enemy-info">
+        <p>Vida do Juninho: <span id="enemyHealth">100</span></p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button onclick="attack()">Atacar</button>
+      <button onclick="attackLevel2()">Atacar Nível 2 (-10 Moedas)</button>
+      <button onclick="attackLevel3()">Atacar Nível 3 (-50 Moedas)</button>
+      <button onclick="recruit()">Recrutar</button>
+    </div>
+  </div>
+
+  <script src="batalha.js"></script>
+</body>
+</html>
