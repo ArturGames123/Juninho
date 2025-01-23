@@ -81,7 +81,29 @@ function handleEnemyDefeat() {
     updateUI();
   }, 20000);
 }
+function defense() {
+  if (coins >= 45) {
+    coins -= 45;
+    playerHealth = 100; // Recupera 100% da vida
+    enemyHealth -= 75; // Inimigo perde 75% da vida
+    if (enemyHealth <= 0) handleEnemyDefeat();
+    updateUI();
+  } else {
+    alert("Você não tem moedas suficientes para usar Defesa!");
+  }
+}
 
+function balancedAttack() {
+  if (coins >= 20) {
+    coins -= 20;
+    enemyHealth -= 75; // Causa 75% de dano ao inimigo
+    coins += 75 * 5 / 100; // Ganha moedas proporcional ao dano causado
+    if (enemyHealth <= 0) handleEnemyDefeat();
+    updateUI();
+  } else {
+    alert("Você não tem moedas suficientes para usar Balanceado!");
+  }
+}
 // Inicia o ataque do inimigo a cada 5 segundos
 setInterval(enemyAttack, 5000);
 
